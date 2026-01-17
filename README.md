@@ -1,4 +1,3 @@
-
 # Imgify
 
 A clean, async Python wrapper for API-based image generation.
@@ -17,7 +16,6 @@ A clean, async Python wrapper for API-based image generation.
 - Support for OpenAI and Azure OpenAI
 
 ## Installation
-
 ```bash
 pip install imgify
 ```
@@ -28,78 +26,67 @@ pip install imgify
 
 #### Option 1: Using Environment Variables
 
-Set up your environment:
-
+Set up your `.env` file:
 ```env
 OPENAI_API_KEY=your-openai-api-key
 ```
 
 Then use the client:
-
 ```python
 import asyncio
 from imgify import ImgifyOpenAI
 
 async def main():
     async with ImgifyOpenAI() as client:
-        image = await client.generate(
-            prompt="A serene mountain landscape"
+        image = await client.generate_image(
+            "A serene mountain landscape"
         )
         print(f"Image: {image.b64_json[:50]}...")
 
 asyncio.run(main())
 ```
 
-#### Option 2: Passing API Key as Parameter
-
+#### Option 2: Passing API Key Directly
 ```python
 import asyncio
 from imgify import ImgifyOpenAI
 
 async def main():
     async with ImgifyOpenAI(api_key="your-openai-api-key") as client:
-        image = await client.generate(
-            prompt="A serene mountain landscape"
+        image = await client.generate_image(
+            "A serene mountain landscape"
         )
         print(f"Image: {image.b64_json[:50]}...")
 
 asyncio.run(main())
 ```
-asyncio.run(main())
-```
-
-#### Option 2: Passing API Key as Parameter
-
 
 ### Azure OpenAI
 
 #### Option 1: Using Environment Variables
 
-Set up your environment:
-
+Set up your `.env` file:
 ```env
 AZURE_OPENAI_API_KEY=your-azure-openai-api-key
 AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
 ```
 
 Then use the client:
-
 ```python
 import asyncio
 from imgify import ImgifyAzure
 
 async def main():
     async with ImgifyAzure() as client:
-        image = await client.generate(
-            prompt="A futuristic city"
+        image = await client.generate_image_b64(
+            "A futuristic city"
         )
         print(f"Image: {image.b64_json[:50]}...")
 
 asyncio.run(main())
 ```
 
-#### Option 2: Passing Credentials as Parameters
-
+#### Option 2: Passing Credentials Directly
 ```python
 import asyncio
 from imgify import ImgifyAzure
@@ -109,55 +96,40 @@ async def main():
         api_key="your-azure-openai-api-key",
         azure_endpoint="https://your-resource.openai.azure.com/"
     ) as client:
-        image = await client.generate(
-            prompt="A futuristic city"
-        )
-        print(f"Image: {image.b64_json[:50]}...")
-
-asyncio.run(main())
-```
-from imgify import DallifyAzureOpenAI
-
-async def main():
-    async with DallifyAzureOpenAI(
-        api_key="your-azure-openai-api-key",
-        azure_endpoint="https://your-resource.openai.azure.com/"
-    ) as client:
-        image = await client.generate(
-            prompt="A futuristic city"
+        image = await client.generate_image(
+            "A futuristic city"
         )
         print(f"Image: {image.b64_json[:50]}...")
 
 asyncio.run(main())
 ```
 
-## Environment Variables
+## Advanced Usage
 
-### OpenAI
-
-```env
-OPENAI_API_KEY=your-openai-api-key
-```
-
-### Azure OpenAI
-
-```env
-AZURE_OPENAI_API_KEY=your-azure-openai-api-key
-AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
-```
-
-## API
-
-### Generate Image as Base64
-
+### Customize Model, Size, and Quality
 ```python
-image = await client.generate(
-    prompt="A peaceful forest",
-    model=ImageModelApiName.GPT_IMAGE_1,  # default
-    size=ImageSize.SQUARE_1024,           # default
-    quality=ImageQuality.STANDARD         # optional
-)
-print(image.b64_json)
+from imgify import ImgifyOpenAI, ImageModelApiName, ImageSize, ImageQuality
+
+async with ImgifyOpenAI() as client:
+    image = await client.generate_image(
+        "A peaceful forest",
+        model=ImageModelApiName.DALL_E_3,
+        size=ImageSize.LANDSCAPE_1792,
+        quality=ImageQuality.HD
+    )
+    print(image.b64_json)
+```
+
+### Save Image to Disk
+```python
+from pathlib import Path
+from base64 import b64decode
+
+async with ImgifyOpenAI() as client:
+    image = await client.generate_image("A sunset over the ocean")
+    
+    # Decode and save
+    Path("output.png").write_bytes(b64decode(image.b64_json))
 ```
 
 ## Available Options
@@ -178,9 +150,5 @@ print(image.b64_json)
 
 ### Quality
 
-- `ImageQuality.STANDARD`
+- `ImageQuality.STANDARD` (default)
 - `ImageQuality.HD`
-
-## License
-
-MIT
