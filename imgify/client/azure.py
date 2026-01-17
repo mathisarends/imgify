@@ -2,12 +2,12 @@ import os
 
 from openai import AsyncAzureOpenAI
 
-from dallify.client.base import BaseDallifyClient
-from dallify.exceptions import DallifyAuthenticationException
+from imgify.client.base import BaseImgifyClient
+from imgify.exceptions import DallifyAuthenticationException
 
 _AZURE_API_VERSION = "2024-02-01"
 
-class DallifyAzureOpenAI(BaseDallifyClient):
+class ImgifyAzure(BaseImgifyClient):
     def __init__(
         self,
         api_key: str | None = None,

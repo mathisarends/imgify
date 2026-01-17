@@ -2,11 +2,11 @@ import os
 
 from openai import AsyncOpenAI
 
-from dallify.client.base import BaseDallifyClient
-from dallify.exceptions import DallifyAuthenticationException
+from imgify.client.base import BaseImgifyClient
+from imgify.exceptions import DallifyAuthenticationException
 
 
-class DallifyOpenAI(BaseDallifyClient):
+class ImgifyOpenAI(BaseImgifyClient):
     def __init__(
         self,
         api_key: str | None = None,

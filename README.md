@@ -1,5 +1,5 @@
 
-# Dallify
+# Imgify
 
 A clean, async Python wrapper for API-based image generation.
 
@@ -19,7 +19,7 @@ A clean, async Python wrapper for API-based image generation.
 ## Installation
 
 ```bash
-pip install dallify
+pip install imgify
 ```
 
 ## Quick Start
@@ -38,10 +38,10 @@ Then use the client:
 
 ```python
 import asyncio
-from dallify import DallifyOpenAI
+from imgify import ImgifyOpenAI
 
 async def main():
-    async with DallifyOpenAI() as client:
+    async with ImgifyOpenAI() as client:
         image = await client.generate(
             prompt="A serene mountain landscape"
         )
@@ -54,10 +54,10 @@ asyncio.run(main())
 
 ```python
 import asyncio
-from dallify import DallifyOpenAI
+from imgify import ImgifyOpenAI
 
 async def main():
-    async with DallifyOpenAI(api_key="your-openai-api-key") as client:
+    async with ImgifyOpenAI(api_key="your-openai-api-key") as client:
         image = await client.generate(
             prompt="A serene mountain landscape"
         )
@@ -65,6 +65,11 @@ async def main():
 
 asyncio.run(main())
 ```
+asyncio.run(main())
+```
+
+#### Option 2: Passing API Key as Parameter
+
 
 ### Azure OpenAI
 
@@ -81,10 +86,10 @@ Then use the client:
 
 ```python
 import asyncio
-from dallify import DallifyAzureOpenAI
+from imgify import ImgifyAzure
 
 async def main():
-    async with DallifyAzureOpenAI() as client:
+    async with ImgifyAzure() as client:
         image = await client.generate(
             prompt="A futuristic city"
         )
@@ -97,7 +102,21 @@ asyncio.run(main())
 
 ```python
 import asyncio
-from dallify import DallifyAzureOpenAI
+from imgify import ImgifyAzure
+
+async def main():
+    async with ImgifyAzure(
+        api_key="your-azure-openai-api-key",
+        azure_endpoint="https://your-resource.openai.azure.com/"
+    ) as client:
+        image = await client.generate(
+            prompt="A futuristic city"
+        )
+        print(f"Image: {image.b64_json[:50]}...")
+
+asyncio.run(main())
+```
+from imgify import DallifyAzureOpenAI
 
 async def main():
     async with DallifyAzureOpenAI(

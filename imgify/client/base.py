@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from openai import AsyncOpenAI, AsyncAzureOpenAI
 from openai.types import ImagesResponse
 
-from dallify.models import (
+from imgify.models import (
     ImageResponse,
     ImageGenerationConfig,
     ImageModelApiName,
@@ -17,7 +17,7 @@ from dallify.models import (
 load_dotenv(override=True)
 
 
-class BaseDallifyClient(ABC):
+class BaseImgifyClient(ABC):
     _client: AsyncOpenAI | AsyncAzureOpenAI
 
     def __init__(

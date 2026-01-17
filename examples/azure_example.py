@@ -3,11 +3,11 @@ from pathlib import Path
 from base64 import b64decode
 from datetime import datetime
 
-from dallify import DallifyAzureOpenAI
+from imgify import ImgifyAzure
 
 
 async def main():
-    async with DallifyAzureOpenAI() as client:
+    async with ImgifyAzure() as client:
         print("Generating image with Azure OpenAI...")
         image = await client.generate_image(
             "A happy person in the rian"

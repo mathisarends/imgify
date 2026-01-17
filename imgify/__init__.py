@@ -1,4 +1,4 @@
-from .client import BaseDallifyClient, DallifyAzureOpenAI, DallifyOpenAI
+from .client import ImgifyAzure, ImgifyOpenAI
 from .models import (
     ImageResponse,
     ImageModelApiName,
@@ -9,12 +9,9 @@ from .models import (
 
 from .exceptions import DallifyException, DallifyAuthenticationException
 
-
-
 __all__ = [
-    "BaseDallifyClient",
-    "DallifyAzureOpenAI",
-    "DallifyOpenAI",
+    "ImgifyAzure",
+    "ImgifyOpenAI",
     "ImageModelApiName",
     "ImageQuality",
     "ImageSize",

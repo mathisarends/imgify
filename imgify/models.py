@@ -2,7 +2,6 @@ from enum import StrEnum
 
 from pydantic import BaseModel, model_serializer
 
-
 class ImageModelApiName(StrEnum):
     GPT_IMAGE_1 = "gpt-image-1"
     DALL_E_2 = "dall-e-2"
